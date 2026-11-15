@@ -24,8 +24,13 @@ app = Flask(__name__)
 UA = {"User-Agent": "Mozilla/5.0 (OGVIEW/1.0)"}
 CACHE = {}
 TIMEOUT = 12
-ET_TZ = ZoneInfo("US/Eastern")
-BERLIN = ZoneInfo("Europe/Berlin")
+try:
+    ET_TZ = ZoneInfo("US/Eastern")
+    BERLIN = ZoneInfo("Europe/Berlin")
+except Exception:
+    from datetime import timezone, timedelta
+    ET_TZ = timezone(timedelta(hours=-5))
+    BERLIN = timezone(timedelta(hours=1))
 
 
 def cache_get(key, ttl, force=False):
