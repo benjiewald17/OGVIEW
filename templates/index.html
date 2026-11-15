@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>OGVIEW – One Global View</title>
+  <link rel="icon" href="/static/logo.webp">
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+<header class="kopf">
+  <div class="brand">
+    <img src="/static/logo.webp" alt="OGVIEW Logo" class="logo">
+    <div>
+      <div class="brand-name">OGVIEW</div>
+      <div class="brand-spruch" data-i18n="spruch">One Global View – The World. The Markets. One Overview.</div>
+    </div>
+  </div>
+  <div class="kopf-aktionen">
+    <div class="sprachwahl" id="sprachwahl">
+      <button class="sprache aktiv" data-lang="de">DE</button>
+      <button class="sprache" data-lang="en">EN</button>
+    </div>
+    <button id="refresh" class="refresh" title="Aktualisieren">
+      <span class="pfeil">⟳</span> <span data-i18n="aktualisieren">Aktualisieren</span>
+    </button>
+  </div>
+</header>
+
+<nav class="tabs">
+  <button class="tab aktiv" data-tab="heatmap" data-i18n="tab_heatmap">Heatmap</button>
+  <button class="tab" data-tab="news" data-i18n="tab_news">News</button>
+  <button class="tab" data-tab="kalender" data-i18n="tab_kalender">Wirtschaftskalender</button>
+</nav>
+
+<main>
+  <!-- ============ HEATMAP ============ -->
+  <section id="tab-heatmap" class="tab-inhalt aktiv">
+    <div class="filterleiste">
+      <div class="chips" id="asset-chips">
+        <button class="chip aktiv" data-asset="alle" data-i18n="f_alle">Alle</button>
+        <button class="chip" data-asset="metalle" data-i18n="f_metalle">Edelmetalle</button>
+        <button class="chip" data-asset="crypto" data-i18n="f_crypto">Crypto</button>
+        <button class="chip" data-asset="aktien" data-i18n="f_aktien">Aktien</button>
+      </div>
+      <select id="index-wahl" class="auswahl">
+        <option value="dax">DAX 40</option>
+        <option value="sp500">S&P 500</option>
+        <option value="nasdaq">NASDAQ 100</option>
+        <option value="dow">Dow Jones</option>
+        <option value="stoxx">EURO STOXX 50</option>
+      </select>
+    </div>
+    <div id="heatmap" class="heatmap"><div class="ladehinweis" data-i18n="lade">Daten werden geladen …</div></div>
+    <p class="legende"><span class="punkt pos"></span><span data-i18n="leg_pos">Kursgewinn</span>
+      &nbsp;·&nbsp; <span class="punkt neg"></span><span data-i18n="leg_neg">Kursverlust</span>
+      &nbsp;·&nbsp; <span data-i18n="leg_hint">Kachel anklicken für Kurschart (Kerzen, SMA, RSI)</span></p>
+  </section>
+
+  <!-- ============ NEWS ============ -->
+  <section id="tab-news" class="tab-inhalt">
+    <div class="filterleiste"><div class="chips" id="quellen-chips"></div></div>
+    <div id="news-liste" class="news-liste"><div class="ladehinweis" data-i18n="lade">Daten werden geladen …</div></div>
+  </section>
+
+  <!-- ============ KALENDER ============ -->
+  <section id="tab-kalender" class="tab-inhalt">
+    <div class="filterleiste">
+      <div class="chips" id="impact-chips">
+        <button class="chip aktiv" data-impact="alle" data-i18n="f_alle">Alle</button>
+        <button class="chip" data-impact="hoch" data-i18n="f_hoch">Hoch wichtig</button>
+        <button class="chip" data-impact="mittel" data-i18n="f_mittel">Mittel</button>
+      </div>
+      <div class="chips" id="kategorie-chips">
+        <button class="chip aktiv" data-kat="alle" data-i18n="f_alle">Alle</button>
+        <button class="chip" data-kat="zinsen" data-i18n="f_zinsen">Zinsentscheide</button>
+        <button class="chip" data-kat="arbeitsmarkt" data-i18n="f_arbeit">Arbeitsmarkt</button>
+        <button class="chip" data-kat="inflation" data-i18n="f_inflation">Inflation</button>
+        <button class="chip" data-kat="bip" data-i18n="f_bip">BIP</button>
+        <button class="chip" data-kat="konjunktur" data-i18n="f_konjunktur">Konjunktur</button>
+        <button class="chip" data-kat="unternehmen" data-i18n="f_unternehmen">Unternehmenszahlen</button>
+      </div>
+    </div>
+    <div id="kalender-liste"><div class="ladehinweis" data-i18n="lade">Daten werden geladen …</div></div>
+  </section>
+</main>
+
+<!-- ============ CHART-MODAL ============ -->
+<div id="modal" class="modal">
+  <div class="modal-inhalt">
+    <div class="modal-kopf">
+      <div>
+        <div class="modal-titel" id="modal-titel">–</div>
+        <div class="modal-preis"><span id="modal-preis">–</span>
+          <span id="modal-chg" class="chg">–</span></div>
+      </div>
+      <button id="modal-schliessen" class="schliessen">✕</button>
+    </div>
+    <div class="range-leiste" id="range-leiste">
+      <button class="range" data-range="1T">1T</button>
+      <button class="range" data-range="5T">5T</button>
+      <button class="range aktiv" data-range="1M">1M</button>
+      <button class="range" data-range="3M">3M</button>
+      <button class="range" data-range="1J">1J</button>
+      <button class="range" data-range="5J">5J</button>
+      <button class="range" data-range="MAX">Alltime</button>
+    </div>
+    <div class="sma-legende">
+      <span class="sma sma20">SMA 20</span><span class="sma sma50">SMA 50</span>
+      <span class="sma sma200">SMA 200</span><span class="sma rsi-leg">RSI 14</span>
+    </div>
+    <canvas id="chart" height="340"></canvas>
+    <div class="rsi-wert" data-i18n="rsi_label">RSI (14):</div>
+    <canvas id="rsi-chart" height="110"></canvas>
+  </div>
+</div>
+
+<footer class="fuss">
+  OGVIEW · One Global View · The World. The Markets. One Overview. ·
+  <span data-i18n="fuss_hinweis">Kursdaten mit Verzögerung, keine Anlageberatung.</span>
+</footer>
+
+<script src="/static/app.js"></script>
+</body>
+</html>

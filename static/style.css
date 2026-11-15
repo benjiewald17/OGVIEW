@@ -1,0 +1,128 @@
+:root {
+  --schwarz: #0a0e12; --panel: #12181e; --panel2: #1a222b;
+  --tuerkis: #14e0cf; --tuerkis-dunkel: #0a8f84; --rot: #ff4d5e;
+  --text: #e8f0f2; --grau: #7d8f99; --linie: #223039;
+  --gelb: #f5c542;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: var(--schwarz); color: var(--text);
+  font-family: "Segoe UI", system-ui, -apple-system, Arial, sans-serif; min-height: 100vh; }
+
+/* ---------- Kopf ---------- */
+.kopf { display: flex; align-items: center; justify-content: space-between; gap: 16px;
+  padding: 14px 26px; background: linear-gradient(180deg, #0d141a, #0a0e12);
+  border-bottom: 2px solid var(--tuerkis-dunkel); flex-wrap: wrap; position: sticky; top: 0; z-index: 50; }
+.brand { display: flex; align-items: center; gap: 14px; }
+.logo { height: 52px; width: auto; border-radius: 8px; }
+.brand-name { font-size: 24px; font-weight: 800; letter-spacing: .12em; color: var(--tuerkis); }
+.brand-spruch { font-size: 11.5px; color: var(--grau); letter-spacing: .04em; }
+.kopf-aktionen { display: flex; align-items: center; gap: 12px; }
+.sprachwahl { display: flex; border: 1px solid var(--linie); border-radius: 8px; overflow: hidden; }
+.sprache { background: transparent; color: var(--grau); border: 0; padding: 7px 13px;
+  cursor: pointer; font-weight: 700; font-size: 12.5px; }
+.sprache.aktiv { background: var(--tuerkis); color: #04211e; }
+.refresh { background: var(--tuerkis); color: #04211e; border: 0; border-radius: 8px;
+  padding: 8px 16px; font-weight: 700; font-size: 13px; cursor: pointer; display: flex; align-items: center; gap: 6px; }
+.refresh:hover { background: #2ff0df; }
+.refresh .pfeil { display: inline-block; font-size: 16px; }
+.refresh.dreht .pfeil { animation: drehen 1s linear infinite; }
+@keyframes drehen { to { transform: rotate(360deg); } }
+
+/* ---------- Tabs ---------- */
+.tabs { display: flex; gap: 6px; padding: 12px 26px 0; border-bottom: 1px solid var(--linie); }
+.tab { background: transparent; border: 0; color: var(--grau); font-size: 14.5px; font-weight: 600;
+  padding: 10px 18px; cursor: pointer; border-bottom: 3px solid transparent; }
+.tab:hover { color: var(--text); }
+.tab.aktiv { color: var(--tuerkis); border-bottom-color: var(--tuerkis); }
+.tab-inhalt { display: none; padding: 18px 26px 40px; }
+.tab-inhalt.aktiv { display: block; }
+
+/* ---------- Filter ---------- */
+.filterleiste { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; margin-bottom: 16px; }
+.chips { display: flex; gap: 6px; flex-wrap: wrap; }
+.chip { background: var(--panel); border: 1px solid var(--linie); color: var(--grau);
+  padding: 6px 13px; border-radius: 20px; font-size: 12.5px; font-weight: 600; cursor: pointer; }
+.chip:hover { color: var(--text); border-color: var(--tuerkis-dunkel); }
+.chip.aktiv { background: var(--tuerkis); border-color: var(--tuerkis); color: #04211e; }
+.auswahl { background: var(--panel); color: var(--text); border: 1px solid var(--linie);
+  border-radius: 8px; padding: 7px 10px; font-size: 13px; }
+
+/* ---------- Heatmap ---------- */
+.heatmap { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 8px; }
+.tile { border-radius: 10px; padding: 10px 12px; cursor: pointer; border: 1px solid rgba(255,255,255,.06);
+  transition: transform .1s; min-height: 84px; display: flex; flex-direction: column; justify-content: space-between; }
+.tile:hover { transform: scale(1.03); border-color: var(--tuerkis); z-index: 2; }
+.tile .sym { font-weight: 800; font-size: 14px; }
+.tile .name { font-size: 10.5px; opacity: .8; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.tile .preis { font-size: 12.5px; font-weight: 600; }
+.tile .chg { font-size: 12px; font-weight: 800; }
+.legende { margin-top: 14px; font-size: 12px; color: var(--grau); }
+.punkt { display: inline-block; width: 10px; height: 10px; border-radius: 3px; }
+.punkt.pos { background: var(--tuerkis); } .punkt.neg { background: var(--rot); }
+.ladehinweis { color: var(--grau); padding: 30px; grid-column: 1/-1; text-align: center; }
+.gruppe-titel { grid-column: 1/-1; color: var(--tuerkis); font-size: 15px; font-weight: 700;
+  margin: 12px 0 2px; letter-spacing: .05em; }
+
+/* ---------- News ---------- */
+.news-liste { display: grid; gap: 10px; max-width: 900px; }
+.news-karte { background: var(--panel); border: 1px solid var(--linie); border-radius: 10px;
+  padding: 14px 16px; display: block; text-decoration: none; color: var(--text); }
+.news-karte:hover { border-color: var(--tuerkis-dunkel); }
+.news-kopf { display: flex; justify-content: space-between; gap: 10px; margin-bottom: 6px; }
+.quelle-badge { font-size: 11px; font-weight: 800; padding: 3px 10px; border-radius: 12px;
+  background: rgba(20,224,207,.12); color: var(--tuerkis); letter-spacing: .04em; }
+.news-zeit { font-size: 11.5px; color: var(--grau); }
+.news-titel { font-size: 14.5px; font-weight: 600; line-height: 1.35; }
+.news-text { font-size: 12.5px; color: var(--grau); margin-top: 5px; line-height: 1.4; }
+.quelle-leer { color: var(--grau); font-size: 13px; padding: 14px 4px; }
+
+/* ---------- Kalender ---------- */
+.kal-tag { margin-bottom: 22px; }
+.kal-tag-titel { font-size: 16px; font-weight: 800; color: var(--tuerkis); margin-bottom: 8px; letter-spacing: .04em; }
+.kal-tag-titel .datum { color: var(--grau); font-weight: 400; font-size: 13px; margin-left: 8px; }
+.kal-tabelle { width: 100%; border-collapse: collapse; background: var(--panel);
+  border: 1px solid var(--linie); border-radius: 10px; overflow: hidden; font-size: 13px; }
+.kal-tabelle th { background: var(--panel2); color: var(--grau); text-align: left;
+  padding: 8px 12px; font-size: 11.5px; text-transform: uppercase; letter-spacing: .06em; }
+.kal-tabelle td { padding: 8px 12px; border-top: 1px solid var(--linie); vertical-align: top; }
+.impact { display: inline-block; width: 9px; height: 9px; border-radius: 50%; }
+.impact.hoch { background: var(--rot); } .impact.mittel { background: var(--gelb); }
+.impact.niedrig { background: var(--tuerkis-dunkel); } .impact.feiertag { background: var(--grau); }
+.land-badge { font-weight: 800; font-size: 12px; color: var(--tuerkis); }
+.werte { font-size: 12px; color: var(--grau); }
+.werte b { color: var(--text); }
+
+/* ---------- Modal / Chart ---------- */
+.modal { display: none; position: fixed; inset: 0; background: rgba(4,8,10,.85); z-index: 100;
+  align-items: flex-start; justify-content: center; padding: 30px 16px; overflow-y: auto; }
+.modal.aktiv { display: flex; }
+.modal-inhalt { background: var(--panel); border: 1px solid var(--tuerkis-dunkel);
+  border-radius: 14px; padding: 20px 22px; width: 100%; max-width: 980px; }
+.modal-kopf { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 10px; }
+.modal-titel { font-size: 19px; font-weight: 800; }
+.modal-preis { font-size: 16px; font-weight: 700; margin-top: 4px; }
+.chg.pos { color: var(--tuerkis); } .chg.neg { color: var(--rot); }
+.schliessen { background: transparent; border: 1px solid var(--linie); color: var(--grau);
+  border-radius: 8px; padding: 6px 12px; cursor: pointer; font-size: 15px; }
+.schliessen:hover { color: var(--text); border-color: var(--rot); }
+.range-leiste { display: flex; gap: 6px; flex-wrap: wrap; margin: 8px 0; }
+.range { background: var(--panel2); border: 1px solid var(--linie); color: var(--grau);
+  padding: 6px 13px; border-radius: 8px; font-size: 12.5px; font-weight: 700; cursor: pointer; }
+.range:hover { color: var(--text); }
+.range.aktiv { background: var(--tuerkis); color: #04211e; border-color: var(--tuerkis); }
+.sma-legende { display: flex; gap: 16px; font-size: 11.5px; margin: 6px 0 8px; }
+.sma::before { content: "— "; }
+.sma20::before { color: #f5c542; } .sma50::before { color: #9b7df0; } .sma200::before { color: #ff9d5c; }
+.sma { color: var(--grau); }
+.rsi-leg::before { color: var(--rot); }
+#chart, #rsi-chart { width: 100%; display: block; }
+.rsi-wert { font-size: 11.5px; color: var(--grau); margin: 8px 0 4px; }
+
+/* ---------- Fuß ---------- */
+.fuss { text-align: center; color: var(--grau); font-size: 11.5px; padding: 20px; border-top: 1px solid var(--linie); }
+
+@media (max-width: 700px) {
+  .kopf { padding: 12px 14px; } .tab-inhalt { padding: 14px 14px 30px; }
+  .heatmap { grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); }
+  .brand-spruch { display: none; }
+}
