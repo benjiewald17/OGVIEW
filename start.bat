@@ -38,7 +38,8 @@ echo.
 echo   WICHTIG: Dieses Fenster bitte OFFEN lassen, solange du die App nutzt!
 echo            Beenden: Fenster schliessen oder Strg+C
 echo.
-start "" http://localhost:5002
+echo   Der Browser oeffnet sich in wenigen Sekunden automatisch.
+start "" /min cmd /c "timeout /t 4 /nobreak >nul && start "" http://localhost:5002"
 %PY% server.py
 goto ende
 
